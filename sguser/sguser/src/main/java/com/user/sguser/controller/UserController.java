@@ -22,7 +22,7 @@ public class UserController {
         System.out.println("received user details");
        return userService.saveUserDetailsService(userEntity);
     }
-
+     // Get the all user details as list
     @GetMapping("/getalluserdetails")
     public List<UserEntity> getAllUserDetails(){
         return userService.getAllUsers();
