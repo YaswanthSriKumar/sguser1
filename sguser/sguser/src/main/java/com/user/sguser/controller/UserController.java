@@ -15,6 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // saving the new User detils
     @PostMapping("/saveuser")
     public ResponseEntity<String> saveUserDetails(@RequestBody UserEntity userEntity)
     {
