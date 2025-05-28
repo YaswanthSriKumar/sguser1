@@ -1,16 +1,19 @@
 package com.user.sguser.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import java.util.UUID;
 
 @Entity
+@Table(name = "sguser")
 public class UserEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JdbcTypeCode(SqlTypes.CHAR) // This tells Hibernate to treat UUID as a CHAR(36)
+    @Column(name = "customer_id", length = 36, nullable = false, updatable = false)
     private UUID customerId;
     private String selectedType;
     private int selectedTypeId;
