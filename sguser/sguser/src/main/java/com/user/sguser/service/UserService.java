@@ -15,20 +15,25 @@ import java.util.UUID;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmailService emailService;
 
     // Converts the request entity and saves it to the database.
     // With status by default "In Progress"
     public ResponseEntity<String> saveUserDetailsService(UserEntity userEntity){
-        UserEntity user=new UserEntity();
+        
+    	System.out.println("adding user __________________________________");
+    	userEntity.setStatus("not yet started");
+    	
 
-        user.setSelectedType(userEntity.getSelectedType());
-        user.setSelectedTypeId(userEntity.getSelectedTypeId());
-        user.setCustomerName(userEntity.getCustomerName());
-        user.setCustomerContact(userEntity.getCustomerContact());
-        user.setStatus("In Progress");
-
-        userRepository.save(user);
+        userRepository.save(userEntity);
         //System.out.println(user.getStatus());
+        
+        emailService.sendEmail(
+                "techsgpvtl@gmail.com", 
+                "New User Created", 
+                "User details have been uploaded successfully!"
+            );
         return ResponseEntity.status(HttpStatus.CREATED).body("User Details uploaded successfully");
     }
 

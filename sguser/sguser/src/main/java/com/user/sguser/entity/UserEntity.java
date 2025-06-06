@@ -20,8 +20,19 @@ public class UserEntity {
     private String customerName;
     private String customerContact;
     private String status;
+    private String comments;
+    
+    
 
-    public String getStatus() {
+    public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public String getStatus() {
         return status;
     }
 
