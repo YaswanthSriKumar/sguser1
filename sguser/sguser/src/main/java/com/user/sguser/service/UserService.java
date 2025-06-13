@@ -62,12 +62,10 @@ public class UserService {
 
 
     //Deletes a user by their customerId.
-    public String deleteUser(UUID customerId){
-        if(!userRepository.existsById(customerId)){
-            throw new RuntimeException("Customer Details not found with ID: " + customerId);
-        }
-        userRepository.deleteById(customerId);
-        return "Customer "+ customerId+" Details are DELETED successfully";
+    public String deleteUser(List<UUID> customerIds){
+       
+        userRepository.deleteAllById(customerIds);
+        return "Customer Details are DELETED successfully";
     }
 
 }
