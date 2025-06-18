@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -21,10 +23,27 @@ public class UserEntity {
     private String customerContact;
     private String status;
     private String comments;
-    
+    private Date requestedTime;
+    private Date requestCloseTime;
     
 
-    public String getComments() {
+    public Date getRequestedTime() {
+		return requestedTime;
+	}
+
+	public void setRequestedTime(Date requestedTime) {
+		this.requestedTime = requestedTime;
+	}
+
+	public Date getRequestCloseTime() {
+		return requestCloseTime;
+	}
+
+	public void setRequestCloseTime(Date requestCloseTime) {
+		this.requestCloseTime = requestCloseTime;
+	}
+
+	public String getComments() {
 		return comments;
 	}
 

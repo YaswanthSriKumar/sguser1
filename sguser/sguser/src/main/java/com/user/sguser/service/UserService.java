@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class UserService {
     // Converts the request entity and saves it to the database.
     // With status by default "In Progress"
     public ResponseEntity<String> saveUserDetailsService(UserEntity userEntity){
-        
+    	userEntity.setRequestedTime(new Date());
     	System.out.println("adding user __________________________________");
     	userEntity.setStatus("not yet started");
     	
@@ -29,11 +30,11 @@ public class UserService {
         userRepository.save(userEntity);
         //System.out.println(user.getStatus());
         
-        emailService.sendEmail(
-                "techsgpvtl@gmail.com", 
-                "New User Created", 
-                "User details have been uploaded successfully!"
-            );
+//        emailService.sendEmail(
+//                "techsgpvtl@gmail.com", 
+//                "New User Created", 
+//                "User details have been uploaded successfully!"
+//            );
         return ResponseEntity.status(HttpStatus.CREATED).body("User Details uploaded successfully");
     }
 
@@ -56,6 +57,10 @@ public class UserService {
             existingUser.setCustomerName(userEntity.getCustomerName());
             existingUser.setCustomerContact(userEntity.getCustomerContact());
             existingUser.setStatus(userEntity.getStatus());
+            if(existingUser.getStatus().equals("done"))
+            {
+            	existingUser.setRequestCloseTime(new Date());
+            }
             return userRepository.save(existingUser);
         });
     }
